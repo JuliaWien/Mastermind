@@ -10,4 +10,13 @@ describe('pickColorTesting', () => {
     it('it should choose PinColors.MAGENTA on 0.16', () => {
         expect(pickColor(() => 0.96)).toBe(PinColors.MAGENTA)
     })
+    it('it should choose PinColors.RED on 0.16', () => {
+        expect(pickColor(() => 1.16)).toBe(PinColors.RED)
+    })
+    it('it should choose PinColors.CYAN on 0.56', () => {
+        expect(pickColor(() => 10.56)).toBe(PinColors.CYAN)
+    })
+    it('it should choose PinColors.MAGENTA on 0.16', () => {
+        expect(pickColor(() => 20.96)).toBe(PinColors.MAGENTA)
+    })
 })
