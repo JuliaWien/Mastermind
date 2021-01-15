@@ -1,5 +1,8 @@
 const PinColors = { RED: "red", GREEN: "green", BLUE: "blue", CYAN: "cyan", YELLOW: "yellow", MAGENTA: "magenta" }
 const PinColorCount = 6;
+const GuessStat = { FITS: "fits", PARTIALLY: "partially", WRONG: "wrong" }
+const GameStat = { LOST: "lost", WON: "won", PENDING: "pending" }
+
 
 function pickColor(rndFunction) {
     console.log("PickColor started: " + rndFunction);
@@ -29,6 +32,7 @@ function pickColor(rndFunction) {
     // return PinColors.MAGENTA;
 }
 
+
 function generateCode() {
     console.log("generateCode");
     let colors = [];
@@ -54,8 +58,38 @@ function generateCode() {
     return colors;
 }
 
+
+function CheckCode(arr1, secretArr) {
+    let guessStats = [];
+    for (let i = 0; i < 4; i++) {
+        if (arr1[i] == secretArr[i])
+            guessStats[i] = GuessStat.FITS;
+        else if (rightColorWrongPlace(i, arr1, secretArr))
+            guessStats[i] = GuessStat.PARTIALLY;
+        else
+            guessStats[i] = GuessStat.WRONG;
+    }
+    return guessStats;
+}
+
+function rightColorWrongPlace(pos, arr1, arr2) {
+    for (let i = 0; i < 4; i++) {
+        if (i != pos && arr1[i] == arr2[pos])
+            return true;
+    }
+    return false;
+}
+
+
 module.exports = {
-    generateCode,
+    //InitNewGame,
+    //NextGameStep,
+    //GameStat,
+    //AddLine,
     pickColor,
-    PinColors
+    generateCode,
+    CheckCode,
+    //CheckCodeScrumble,
+    //game,
+    PinColors, GuessStat//, GameStat
 }
