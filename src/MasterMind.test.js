@@ -20,3 +20,21 @@ describe('pickColorTesting', () => {
         expect(pickColor(() => 20.96)).toBe(PinColors.MAGENTA)
     })
 })
+
+function doubleColorTest(f) {
+    for (let i = 0; i < f.length - 1; i++) {
+        for (let j = i + 1; j < f.length; j++) {
+            if (f[i] == f[j])
+                return true;
+        }
+    }
+    return false;
+}
+
+describe('generateCodeTesting', () => {
+    for (let i = 0; i < 10; i++) {
+        it("array mustn't contain twin PinColors", () => {
+            expect(doubleColorTest(generateCode())).toBe(false)
+        })
+    }
+})

@@ -29,7 +29,33 @@ function pickColor(rndFunction) {
     // return PinColors.MAGENTA;
 }
 
+function generateCode() {
+    console.log("generateCode");
+    let colors = [];
+
+    for (let i = 0; i < 4; i++) {
+        let twice;
+        do {
+            console.log("Vor PickColor");
+            colors[i] = pickColor(Math.random);
+            console.log("Nach PickColor");
+            twice = false;
+
+            // Test, ob die Farbe vorher schon gewählt wurde
+            for (let j = 0; j < i; j++) {
+                if (colors[j] == colors[i]) {
+                    twice = true;
+                    break;
+                }
+            }
+        } while (twice);
+    }
+    console.log("Fertig");
+    return colors;
+}
+
 module.exports = {
+    generateCode,
     pickColor,
     PinColors
 }
