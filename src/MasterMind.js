@@ -94,11 +94,111 @@ function CheckCodeScrumble(arr1, arr2, randomFnct) {
     return guessStats;
 }
 
+function allFITS(guess) {
+    for (let i = 0; i < guess.length; i++) {
+        if (guess[i] != GuessStat.FITS) {
+            console.log("allFITS: " + guess + " => false");
+            return false;
+        }
+    }
+    console.log("allFITS: " + guess + " => true");
+    return true;
+}
+
+
+function game(guessArray) {
+    console.log("Game: " + guessArray)
+    console.log("Array.length: " + guessArray.length);
+
+    if (guessArray.length > 12)
+        return GameStat.LOST;
+
+    let i;
+    for (let i = 0; i < guessArray.length; i++) {
+        if (guessArray[i] != undefined && allFITS(guessArray[i]))
+            return GameStat.WON;
+    }
+    return GameStat.PENDING;
+}
+
+function convertInput(inputString) {
+    inputString = inputString.toUpperCase();
+    let guesses = [];
+    let pinPos = 0;
+    for (item of inputString) {
+        if (pinPos < 4) {
+            if (item == 'R')
+                guesses[pinPos++] = PinColors.RED;
+            else if (item == 'B')
+                guesses[pinPos++] = PinColors.BLUE;
+            else if (item == 'G')
+                guesses[pinPos++] = PinColors.GREEN;
+            else if (item == 'Y')
+                guesses[pinPos++] = PinColors.YELLOW;
+            else if (item == 'M')
+                guesses[pinPos++] = PinColors.MAGENTA;
+            else if (item == 'C')
+                guesses[pinPos++] = PinColors.CYAN;
+        }
+    }
+    console.log("Your guess: " + guesses);
+    return guesses;
+}
+
+var guesses;
+var guessInd = 0;
+var secretCode;
+
+function InitNewGame() {
+    console.log("New Game");
+    guesses = []; // new Array(12);
+    guessInd = 0;
+
+    console.log("Before generateCode()");
+    secretCode = generateCode();
+    AddLine(secretCode);
+    console.log("Generate Code completed");
+    console.log(secretCode);
+}
+
+function AddLine(outputLine) {
+    let tag = document.createElement("p");
+    tag.innerText = outputLine;
+    document.body.appendChild(tag);
+}
+
+function NextGameStep(yourGuess) {
+    console.log("NextGameStep: " + yourGuess);
+    // guesses[guessInd] = CheckCodeScrumble(secretCode, convertInput(Console.ReadLine()), dice.NextDouble);
+    let currGuess = convertInput(yourGuess);
+    guesses[guessInd] = CheckCode(secretCode, currGuess);
+    let res = "| " + currGuess + " || ";
+
+    for (item of guesses[guessInd]) {
+        res += item + " | ";
+    }
+
+    AddLine(res);
+    guessInd++;
+
+    return game(guesses);
+    // } while (guessInd < 12 && game(guesses) == false);
+
+    // if (game(guesses) == false)
+    //     Console.WriteLine("Leider verloren! Der Computer gewinnt!");
+    // else
+    //     Console.WriteLine("Richtig getippt! Sie gewinnen!");
+}
 
 module.exports = {
+    InitNewGame,
+    NextGameStep,
+    GameStat,
+    AddLine,
     pickColor,
     generateCode,
     CheckCode,
     CheckCodeScrumble,
-    PinColors, GuessStat
+    game,
+    PinColors, GuessStat, GameStat
 }

@@ -84,3 +84,55 @@ describe('checkCodeScrumbleTesting', () => {
         expect(CheckCodeScrumble(arr1, arr3, () => 0.4)).toStrictEqual(expected2)
     })
 })
+
+
+describe('checkCodeGameTesting', () => {
+    let guesses1 = [
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.WRONG, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.WRONG, GuessStat.PARTIALLY, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.FITS, GuessStat.FITS]
+    ];
+    it("game() on 13 tries should return LOST", () => {
+        expect(game(guesses1)).toBe(GameStat.LOST)
+    })
+
+    let guesses2 = [
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.WRONG, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.WRONG, GuessStat.PARTIALLY, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.FITS, GuessStat.FITS]
+    ];
+    it("game() within 12 tries and allFITS should return WON", () => {
+        expect(game(guesses2)).toBe(GameStat.WON)
+    })
+
+    let guesses3 = [
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.WRONG, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.WRONG, GuessStat.PARTIALLY, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.WRONG],
+        [GuessStat.FITS, GuessStat.FITS, GuessStat.FITS, GuessStat.WRONG]
+    ];
+    it("game() within 12 tries and NO allFITS should return PENDING", () => {
+        expect(game(guesses3)).toBe(GameStat.PENDING)
+    })
+})
