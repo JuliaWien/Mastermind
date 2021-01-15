@@ -66,3 +66,21 @@ describe('checkCodeTesting', () => {
     })
 })
 
+
+describe('checkCodeScrumbleTesting', () => {
+    let arr1 = [PinColors.RED, PinColors.BLUE, PinColors.GREEN, PinColors.MAGENTA];
+    let arr2 = [PinColors.RED, PinColors.GREEN, PinColors.BLUE, PinColors.MAGENTA];
+    let expected = [GuessStat.FITS, GuessStat.PARTIALLY, GuessStat.PARTIALLY, GuessStat.FITS];
+    it("CheckCodeScrumble should return expected result 1", () => {
+        expect(CheckCodeScrumble(arr1, arr2, () => 0.4)).toStrictEqual(expected)
+    })
+    it("CheckCodeScrumble should return expected result 2", () => {
+        expect(CheckCodeScrumble(arr2, arr1, () => 0.4)).toStrictEqual(expected)
+    })
+
+    let arr3 = [PinColors.BLUE, PinColors.YELLOW, PinColors.CYAN, PinColors.MAGENTA];
+    let expected2 = [GuessStat.PARTIALLY, GuessStat.WRONG, GuessStat.WRONG, GuessStat.FITS];
+    it("CheckCodeScrumble should return expected result 3", () => {
+        expect(CheckCodeScrumble(arr1, arr3, () => 0.4)).toStrictEqual(expected2)
+    })
+})

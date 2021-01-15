@@ -80,16 +80,25 @@ function rightColorWrongPlace(pos, arr1, arr2) {
     return false;
 }
 
+function CheckCodeScrumble(arr1, arr2, randomFnct) {
+    let guessStats = CheckCode(arr1, arr2);
+
+    for (let i = 0; i < 5; i++) {
+        let i1 = Math.trunc(randomFnct() * 4);
+        let i2 = Math.trunc(randomFnct() * 4);
+        let tmpGuess = guessStats[i1];
+        guessStats[i1] = guessStats[i2];
+        guessStats[i2] = tmpGuess;
+    }
+
+    return guessStats;
+}
+
 
 module.exports = {
-    //InitNewGame,
-    //NextGameStep,
-    //GameStat,
-    //AddLine,
     pickColor,
     generateCode,
     CheckCode,
-    //CheckCodeScrumble,
-    //game,
-    PinColors, GuessStat//, GameStat
+    CheckCodeScrumble,
+    PinColors, GuessStat
 }
