@@ -5,13 +5,10 @@ const GameStat = { LOST: "lost", WON: "won", PENDING: "pending" }
 
 
 function pickColor(rndFunction) {
-    console.log("PickColor started: " + rndFunction);
     let colorNr = rndFunction();
     colorNr -= Math.trunc(colorNr);  // 10.5 --> 0.5
     colorNr = Math.floor(colorNr * PinColorCount);   // [0.0 .. 1.0[  --> Int[0 .. 5]
-    console.log("PickColor: Random completed: " + colorNr)
-
-    console.log("returns " + PinColors[Object.keys(PinColors)[colorNr]]);
+   
     return PinColors[Object.keys(PinColors)[colorNr]];  // Object.keys(PinColors) --> ["RED", "GREEN", "BLUE", ...]
 
     // PinColors["RED"] entspricht PinColors.RED
@@ -34,15 +31,12 @@ function pickColor(rndFunction) {
 
 
 function generateCode() {
-    console.log("generateCode");
     let colors = [];
 
     for (let i = 0; i < 4; i++) {
         let twice;
         do {
-            console.log("Vor PickColor");
             colors[i] = pickColor(Math.random);
-            console.log("Nach PickColor");
             twice = false;
 
             // Test, ob die Farbe vorher schon gewählt wurde
@@ -54,7 +48,6 @@ function generateCode() {
             }
         } while (twice);
     }
-    console.log("Fertig");
     return colors;
 }
 
